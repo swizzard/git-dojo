@@ -33,6 +33,7 @@ Before a commit is finalized, you have to write a 'commit message.' Commit messa
 * Similarly, _don't_ identify yourself--that's available elsewhere as well.
 * _Do_ say what you did and (ideally) why.
 Good commit messages share much in common with good comments.
+NB: Github treats the first line of a commit message as a kind of header or title.
 
 Every time you commit, it adds to the `history`. This is good, because it means there's a record of what's been done. If you make a mistake, you can always fix it and then make another commit. (There are [secret things](#secret-things) you can do about that, however.)
 
