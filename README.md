@@ -21,6 +21,7 @@ Branches are like paths your work can take. When you [initialize a new repo](#in
   * Older Git references (and users) will use `git checkout -b <name>` instead. This is fine, but `git checkout` is extremely overloaded (i.e. does too many things.) `git switch` was added to handle some of `checkout`'s responsibilites and should generally be prefered.
 * `git switch <name>` (without `-c`) will switch to a given branch. If the branch doesn't exist, you'll get an error.
 * `git switch -` will switch you back to the previous branch you were on.
+* `git branch -m <new-name>` will change the name of your current branch, _but only locally_. There are ways to fix a misnamed branch on a remote, but they're fussy, so it's better to get it right _before_ you push.
 
 
 ## Committing
