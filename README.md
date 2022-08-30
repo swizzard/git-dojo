@@ -1,7 +1,6 @@
 # Git Dojo
 
 ## Initialize a new repo
-A `repository` (or `repo`) is 
 * `git init`
   * if you have `>= 2.28` (`git --version` to check) you can change the default branch name
     * pass `-b main`/`--initial-branch=main` to initialize the new repo with `main` as the default branch
@@ -42,3 +41,19 @@ If, for whatever reason, you want to bail without committing, you can delete or 
 Every time you commit, it adds to the `history`. This is good, because it means there's a record of what's been done. If you make a mistake, you can always fix it and then make another commit.
 
 If you really want to make changes to a commit you've already made (but _have not [pushed](#pulling-and-pushing)_), you can use `git commit --amend` to re-open the commit editor. This will let you remove committed files (by commenting them out) or change the commit message. Bear in mind that `git commit --amend` only lets you edit your most recent commit. If you delete or comment out everything while amending, it won't "undo" the commit--it'll just leave it as is.
+
+## Merging
+In order to get the work done in one branch into another branch, it needs to be `merged`. Most of the time, this should be done by opening a pull request on GitHub and having your peers review the code you want to merge. Not only does GitHub provide a nice-looking visual interface with affordances for comments, etc., it also makes it easy to `squash and merge`, which [`rebases`](#rebasing) all the commits in a branch into one single commit, and then merges that. Since the entire branch is represented in one commit, it's much easier to `rebase` out or revert. When you open a PR on GitHub, you might see a warning that your branch cannot be merged automatically. In that case, it's up to you to pull the latest changes to main into your branch and resolve any conflicts (see below.)
+* `git merge <branch>` will merge the changes made in `<branch>` into your current branch. Git is generally pretty good about figuring how best to do this, and most of the time it should go smoothly. Sometimes, however, there will be `merge conflicts`. Git will let you know when this happens; it's up to you to resolve the conflicts. Git will add special formatting within the affected files to call attention to the conflicts. It looks like
+```
+<<<<<<<<<<<<<<<<<< HEAD: <filename>
+<stuff as it is in HEAD>
+==================
+<stuff as it is in the commit you're merging>
+>>>>>>>>>>>>>>>>> <commit id>: <filename>
+```
+Usually you'll pick one side (above or below the `====`) and delete the rest, but you're free to mix and match, or delete all of it and replace it with something else entirely. The important thing is that you delete the `<<<<<< ====== >>>>>>`, save the change, and then mark the conflict as `resolved` with `git add`. Once you've resolved all the conflicts, finalize the merge with `git merge --continue`. You can also bail with `git merge --abort` (just like when you're [`rebasing`](#rebasing) or [`cherry-picking`](#cherry-picking).)
+* `git merge <branch> --theirs` works like regular merging, but precludes conflicts by deferring to what's in `<branch>`. Similarly, `git merge <branch> --ours` will use what's in your current branch over what's in the branch you're merging in.
+
+## Rebasing other branches
+Instead of merging branches, you can rebase them instead. Full disclosure: this is one of my biggest git blind spots. It's usually discussed in terms of "replaying commits" from one branch "on top" of another. I don't really know what that means. I'm familiar and comfortable with using `git rebase -i` to edit the history of a branch, but almost never rebase one branch into (onto?) another. I've tried it a few times; it's always been stressful and I've always regretted not just merging instead. That said, there's assuredly a reason for it, and situations in which it is absolutely called for instead of a regular merge.
