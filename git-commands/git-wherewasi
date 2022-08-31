@@ -1,0 +1,18 @@
+#! /usr/bin/bash
+
+function wherewasi() {
+  DEPTH=1
+  if [[ $# -eq 1 ]]; then
+    if [[ $1 -eq "-h" ]]; then
+      cat << 'EOF'
+Usage: git wherewasi [number of commits]
+EOF
+      exit 0
+    fi
+    DEPTH=$1
+  fi;
+  git --no-pager log "${GIT_MAIN_BRANCH:-main}".. --name-only -n "$DEPTH"
+}
+
+
+wherewasi "$@"
