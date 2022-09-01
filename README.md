@@ -19,7 +19,6 @@ Remotes are places where your code lives. Most of the time, this will be on gith
 * `git remote set-url <name> <url>` will update the url of a remote by name
 * `git remote remove <name>` will remove a repo by name
 
-<<<<<<< HEAD
 Much like most people use `main` for the default branch, it's conventional to call your primary/default remote `origin`.
 
 
